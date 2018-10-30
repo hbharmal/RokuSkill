@@ -1,0 +1,15 @@
+{
+  "name": "roku-skill-kit-sdk",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "alexa-sdk": "^1.0.25"
+  },
+  "description": "Roku Lamda for Roku skill with Alexa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hussain Bharmal",
+  "license": "ISC"
+}
