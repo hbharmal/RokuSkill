@@ -47,35 +47,20 @@ const LaunchIntentHandler = {
 	}
 }
 
-const CaptionsOnIntentHandler = {
+const CaptionsIntentHandler = {
 	canHandle(handlerInput) {
 		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'CaptionsOn'
+		const name = request.name;
+		return request === 'IntentRequest' && name == 'Captions'
 	},
 	handle(handlerInput) {
+		const setting = intent.slots.Setting.value.toLowerCase();
 		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/captionson", null, function() {
+		sendCommand("/roku/captions" + setting, null, function() {
 			return responseBuilder
-				.speak("Turning on captions")
+				.speak("Captions are turned " + setting)
 				.getResponse()
-		})
-	}
-}
-
-const CaptionsOffIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'CaptionsOff'
-	},
-	handle(handlerInput) {
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/captionsoff", null, function() {
-			return responseBuilder
-				.speak("Turning off captions")
-				.getResponse()
-		})
+		});
 	}
 }
 
@@ -179,80 +164,17 @@ const InstantReplayIntentHandler = {
 const UpIntentHandler = {
 	canHandle(handlerInput) {
 		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Up'
+		const name = request.name;
+		return request === 'IntentRequest' && name == 'Up'
 	},
 	handle(handlerInput) {
+		const amount = intent.slots.Amount.value.toLowerCase();
 		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/up", null, function() {
+		sendCommand("/roku/up" + amount, null, function() {
 			return responseBuilder
-				.speak("You got it")
+				.speak("You got it! Going up " + amount)
 				.getResponse()
-		})
-	}
-}
-
-const UpTwoIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Uptwo'
-	},
-	handle(handlerInput) {
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/uptwo", null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-const UpThreeIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Upthree'
-	},
-	handle(handlerInput) {
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/upthree", null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-const UpFourIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Upfour'
-	},
-	handle(handlerInput) {
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/upfour", null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-const UpFiveIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Upfive'
-	},
-	handle(handlerInput) {
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/upfive", null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
+		});
 	}
 }
 
@@ -263,74 +185,11 @@ const DownIntentHandler = {
 		return request === 'IntentRequest' && name === 'Down'
 	},
 	handle(handlerInput) {
+		const amount = intent.slots.Amount.value.toLowerCase();
 		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/down", null, function() {
+		sendCommand("/roku/down" + amount, null, function() {
 			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-const DownTwoIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Downtwo'
-	},
-	handle(handlerInput) {
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/downtow", null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-const DownThreeIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Downthree'
-	},
-	handle(handlerInput) {
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/downthree", null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-const DownFourIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Downfour'
-	},
-	handle(handlerInput) {
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/downfour", null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-const DownFiveIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Downfive'
-	},
-	handle(handlerInput) {
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/downfive", null, function() {
-			return responseBuilder
-				.speak("You got it")
+				.speak("You got it! Going down " + amount)
 				.getResponse()
 		})
 	}
@@ -343,87 +202,15 @@ const LeftIntentHandler = {
 		return request === 'IntentRequest' && name === 'Left'
 	},
 	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
+		const amount = intent.slots.Amount.value.toLowerCase();
 		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
+		sendCommand("/roku/left" + amount, null, function() {
 			return responseBuilder
-				.speak("You got it")
+				.speak("You got it! Going left " + amount)
 				.getResponse()
 		})
 	}
 }
-
-const LeftTwoIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Lefttwo'
-	},
-	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-
-const LeftThreeIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Leftthree'
-	},
-	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-
-const LeftFourIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Leftfour'
-	},
-	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-
-const LeftFiveIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Leftfive'
-	},
-	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
 
 const RightIntentHandler = {
 	canHandle(handlerInput) {
@@ -432,83 +219,11 @@ const RightIntentHandler = {
 		return request === 'IntentRequest' && name === 'Right'
 	},
 	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
+		const amount = intent.slots.Amount.value.toLowerCase()
 		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
+		sendCommand("/roku/right" + amount, null, function() {
 			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-
-const RightTwoIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Righttwo'
-	},
-	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-
-const RightThreeIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Rightthree'
-	},
-	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-
-const RightFourIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Rightfour'
-	},
-	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
-			return responseBuilder
-				.speak("You got it")
-				.getResponse()
-		})
-	}
-}
-
-
-const RightFiveIntentHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const name = request.intent.name;
-		return request === 'IntentRequest' && name === 'Rightfive'
-	},
-	handle(handlerInput) {
-		const name = request.intent.name.toLowerCase();
-		const responseBuilder = handlerInput.responseBuilder;
-		sendCommand("/roku/" + name, null, function() {
-			return responseBuilder
-				.speak("You got it")
+				.speak("You got it! Going right " + amount)
 				.getResponse()
 		})
 	}
@@ -546,3 +261,38 @@ const TypeIntentHandler = {
 		});
 	}
 }
+
+const PlayIntentHandler = {
+	canHandle(handlerInput) {
+		const request = handlerInput.requestEnvelope.request;
+		const name = request.intent.name;
+		return request === 'IntentRequest' && name === 'Play'
+	},
+	handle(handlerInput) {
+		const responseBuilder = handlerInput.responseBuilder;
+		sendCommand("/roku/playpause", null, function() {
+			return responseBuilder
+				.speak("Paused")
+				.getResponse()
+		});
+	}
+}
+
+const SearchIntentHandler = {
+	canHandle(handlerInput) {
+		const request = handlerInput.requestEnvelope.request;
+		const name = request.intent.name;
+		return request === 'IntentRequest' && name === 'Search'
+	},
+	handle(handlerInput) {
+		const responseBuilder = handlerInput.responseBuilder;
+		sendCommand("/roku/search", null, function() {
+			return responseBuilder
+				.speak("Searching")
+				.getResponse()
+		});
+	}
+}
+
+
+
