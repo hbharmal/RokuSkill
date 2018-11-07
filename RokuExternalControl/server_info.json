@@ -1,5 +1,5 @@
 {
-    "rokuAddress": "null",
-    "port": 1234,
+    "rokuAddress": "192.168.0.125",
+    "port": 8060,
     "password": "passowrd"
 }

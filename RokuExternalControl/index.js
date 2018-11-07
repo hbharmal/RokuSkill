@@ -2,45 +2,31 @@ var http = require("http");  // http module allows data trasnfer via HTTP
 var fs = require("fs");  // fs module allows node to interact with file system on computer
 var url = require("url");  // url module splits url into readeable parts
 var client = require("node-ssdp").Client // ssdp module for Simple Service Discovery Protocol
-var ssdp = new client();
+var ssdp = new client({});
 
-var server_info = { rokuAddress: 'null', port: 1234, password: 'passowrd' };
-var channels;
-var rokuAddress;
-var rokuSearchInterval = 1000;
+var server_info = JSON.parse(fs.readFileSync('server_info.json').toString())
+var channels = JSON.parse(fs.readFileSync('channels.json').toString())
+var rokuAddress = '192.168.0.125';
+var port = '8060';
 var keyDelay = 100;
-
-fs.readFile('server_info.json', function(err, data) {
-    if (err) {
-        console.log(err);
-    } else {
-        server_info = JSON.parse(data.toString());
-        console.log(server_info);
-    }
-});
-
-fs.readFile('channels.json', function(err, data) {
-    if (err) {
-        console.log(err);
-    } else {
-        channels = JSON.parse(data.toString());
-    }
-});
 
 // find a roku device using ssdp 
 ssdp.on('response', function(headers, statusCode, remoteInfo) {
-    if (headers.ST === 'roku:ecp') {
-        rokuAddress = headers.LOCATION;
+    if (headers.ST == 'roku:ecp') {
+        // console.log(`Found roku device with address ${headers.LOCATION}`);
+        var q = url.parse(headers.LOCATION);
+        rokuAddress = q.hostname; 
+        port = q.port;
+        console.log(rokuAddress, port)
+        clearInterval(rokuSearch);
     }
 });
 
-function searchForRoku() {
-    if (!rokuAddress) {
-        ssdp.search('ssdp:all');
-    } else {
-        clearInterval(rokuSearchInterval);
-    }
-}
+if (!rokuAddress) {
+    rokuSearch = setInterval(function searchForRoku() {
+        ssdp.search('roku:ecp')
+    }, 1000);
+};
 
 // helper function to post to a url
 function post(url, callback) {
@@ -382,7 +368,20 @@ function handleRequest(request, response) {
     }
 }
 
+function searchChannel(address, title, channelID) {
+    return address + "/search/browse?title=" + title + "&provider-id=" + channelID + "&launch=true&match-any=true";
+}
 
+function searchAllChannels(address, title) {
+    var ids = Object.keys(channels).map(channel => {
+        return channels[channel]
+    }).filter(id => {
+        return Number(id);
+    }).join('%2c');
+    
+    return address + "/search/browse?title=" + title + "&provider-id=" + ids + "&launch=true&match-any=true";
+
+}
 
 http.createServer(handleRequest).listen(server_info.port, function() {
     console.log("Server listening on port ", server_info.port);
