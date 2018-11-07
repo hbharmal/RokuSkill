@@ -1,0 +1,14 @@
+{
+  "name": "rokuexternalcontrol",
+  "version": "1.0.0",
+  "description": "To connect to roku server for external controls ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hussain Bharmal",
+  "license": "ISC",
+  "dependencies": {
+    "node-ssdp": "^4.0.0"
+  }
+}
