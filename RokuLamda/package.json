@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "alexa-sdk": "^1.0.25"
+    "ask-sdk-core": "^2.0.0",
+    "ask-sdk-model": "^1.0.1"
   },
   "description": "Roku Lamda for Roku skill with Alexa",
   "main": "index.js",

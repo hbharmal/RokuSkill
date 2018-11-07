@@ -295,4 +295,33 @@ const SearchIntentHandler = {
 }
 
 
+// function to send request to Roku Control Server 
+function sendRequest(path, body, callback) {
+
+    // options for the HTTP request
+    var options = {
+        host: server_info.host,
+        port: server_info.port,
+        path: path, 
+        method: 'POST',
+        header: {
+            'Authorization': server_info.pass
+        }
+    }
+
+    var request = http.request(options, response => {
+        callback();
+        response.setEncoding('utf-8');
+        response.on('data', data => {
+            console.log('Response: ', data);
+        });
+    });
+
+    if (body) {
+        request.write(body)
+        request.end();
+    }
+}
+
+
 
